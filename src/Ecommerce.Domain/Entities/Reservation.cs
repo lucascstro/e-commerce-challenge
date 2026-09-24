@@ -1,4 +1,5 @@
 using Ecommerce.Domain.Entities.Enum;
+using Ecommerce.Domain.Exceptions;
 
 namespace Ecommerce.Domain.Entities
 {
@@ -11,14 +12,16 @@ namespace Ecommerce.Domain.Entities
         public DateTime ExpiresAt { get; private set; } = DateTime.UtcNow.AddHours(72);
         public Status Status { get; private set; } = Status.Active;
 
-        public Reservation(Guid reservationId, Guid customerId, Guid productId, DateTime createdAt, DateTime expiresAt, Status status)
+        public Reservation(Guid customerId, Guid productId)
         {
-            ReservationId = reservationId;
+            if(customerId == Guid.Empty)
+                throw new DomainException("O ID do cliente não pode ser vazio.");
+
+            if(productId == Guid.Empty)
+                throw new DomainException("O ID do produto não pode ser vazio.");
+
             CustomerId = customerId;
             ProductId = productId;
-            CreatedAt = createdAt;
-            ExpiresAt = expiresAt;
-            Status = status;
         }
 
         public void UpdateStatus(Status status)
