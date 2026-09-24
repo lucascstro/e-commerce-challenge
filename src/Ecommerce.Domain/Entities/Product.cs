@@ -1,3 +1,5 @@
+using Ecommerce.Domain.Exceptions;
+
 namespace Ecommerce.Domain.Entities
 {
     public class Product
@@ -21,22 +23,23 @@ namespace Ecommerce.Domain.Entities
         public void UpdateName(string name)
         {
             if(name.Length > MaxNameLength)
-                throw new ArgumentException($"O nome não pode ter mais de {MaxNameLength} caracteres.", nameof(name));
+                throw new DomainException($"O nome não pode ter mais de {MaxNameLength} caracteres.");
+
             if(name.Length < MinNameLength)
-                throw new ArgumentException($"O nome não pode ter menos de {MinNameLength} caracteres.", nameof(name));
+                throw new DomainException($"O nome não pode ter menos de {MinNameLength} caracteres.");
 
             if(string.IsNullOrWhiteSpace(name))
-                throw new ArgumentException("O nome não pode ser vazio ou espaço em branco.", nameof(name));
+                throw new DomainException("O nome não pode ser vazio ou espaço em branco.");
                         
             Name = name;
         }
         public void UpdateDescription(string description)
         {   
             if(string.Compare(description, Description) == 0)
-                throw new ArgumentException("A descrição não pode ser igual a anterior.", nameof(description));
+                throw new DomainException("A descrição não pode ser igual a anterior.");
 
             if(description.Length > MaxDescriptionLength)
-                throw new ArgumentException($"A descrição não pode ter mais de {MaxDescriptionLength} caracteres.", nameof(description));
+                throw new DomainException($"A descrição não pode ter mais de {MaxDescriptionLength} caracteres.");
                         
             Description = description;
         }
@@ -56,7 +59,7 @@ namespace Ecommerce.Domain.Entities
                 throw new InvalidOperationException("O produto já está disponível.");
 
             IsAvailable = true;
-            return IsAvailable; 
+            return IsAvailable;
         }
     }
 }

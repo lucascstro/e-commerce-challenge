@@ -1,3 +1,5 @@
+using Ecommerce.Domain.Exceptions;
+
 namespace Ecommerce.Domain.Entities
 {
     public class Customer
@@ -8,22 +10,21 @@ namespace Ecommerce.Domain.Entities
         public Guid CustomerId { get; private set; } = Guid.NewGuid();
         public string Name { get; private set; }
 
-        public Customer(Guid customerId, string name)
+        public Customer(string name)
         {
-            CustomerId = customerId;
             Name = name;
         }
         
         public void UpdateName(string name)
         {
             if(name.Length > MaxNameLength)
-                throw new ArgumentException($"O nome não pode ter mais de {MaxNameLength} caracteres.", nameof(name));
+                throw new DomainException($"O nome não pode ter mais de {MaxNameLength} caracteres.");
                 
             if(name.Length < MinNameLength)
-                throw new ArgumentException($"O nome não pode ter menos de {MinNameLength} caracteres.", nameof(name));
+                throw new DomainException($"O nome não pode ter menos de {MinNameLength} caracteres.");
 
             if(string.IsNullOrWhiteSpace(name))
-                throw new ArgumentException("O nome não pode ser vazio ou espaços em branco.", nameof(name));
+                throw new DomainException("O nome não pode ser vazio ou espaços em branco.");
                         
             Name = name;
         }
