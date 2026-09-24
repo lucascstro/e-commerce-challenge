@@ -24,16 +24,12 @@ namespace Ecommerce.Domain.Entities
             ProductId = productId;
         }
 
-        public void UpdateStatus(Status status)
+        public void UpdateStatusToExpired()
         {
-            if(status == Status.Expired && Status == Status.Expired)
+            if(Status == Status.Expired)
                 throw new InvalidOperationException("A reserva já está expirada.");
-            
-            if(status == Status.Active && Status == Status.Active)
-                throw new InvalidOperationException("A reserva já está ativa.");
 
             Status = Status.Expired;
-            ExpiresAt = DateTime.UtcNow;
         }
     }
 }
