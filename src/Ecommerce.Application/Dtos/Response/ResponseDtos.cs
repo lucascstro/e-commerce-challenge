@@ -1,3 +1,5 @@
+using Ecommerce.Domain.Entities.Enum;
+
 namespace Ecommerce.Application.Dtos.Response
 {
     public record AllReservationsByCustomerResponse(
@@ -14,6 +16,6 @@ namespace Ecommerce.Application.Dtos.Response
 
     public record UpdateReservationResponse(
         Guid ReservationId,
-        string Status
+        Status Status
     );
 }
