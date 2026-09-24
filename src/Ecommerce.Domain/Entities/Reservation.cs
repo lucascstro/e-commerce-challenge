@@ -24,7 +24,7 @@ namespace Ecommerce.Domain.Entities
             ProductId = productId;
         }
 
-        public void UpdateStatusToExpired(Status status)
+        public void UpdateStatus(Status status)
         {
             if(status == Status.Expired && Status == Status.Expired)
                 throw new InvalidOperationException("A reserva já está expirada.");
@@ -40,7 +40,7 @@ namespace Ecommerce.Domain.Entities
 
             if(status == Status.Expired && Status == Status.Cancelled)
                 throw new InvalidOperationException("Não é possível expirar uma reserva cancelada.");
-                
+
             if(status == Status.Cancelled && Status == Status.Expired)
                 throw new InvalidOperationException("Não é possível cancelar uma reserva expirada.");
 
