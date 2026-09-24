@@ -24,12 +24,27 @@ namespace Ecommerce.Domain.Entities
             ProductId = productId;
         }
 
-        public void UpdateStatusToExpired()
+        public void UpdateStatusToExpired(Status status)
         {
-            if(Status == Status.Expired)
+            if(status == Status.Expired && Status == Status.Expired)
                 throw new InvalidOperationException("A reserva já está expirada.");
+            
+            if(status == Status.Active && Status == Status.Active)
+                throw new InvalidOperationException("A reserva já está ativa.");
 
-            Status = Status.Expired;
+            if(status == Status.Cancelled && Status == Status.Cancelled)
+                throw new InvalidOperationException("A reserva já está cancelada.");
+
+            if(status == Status.Active && (Status == Status.Expired || Status == Status.Cancelled))
+                throw new InvalidOperationException("Não é possível reativar uma reserva expirada ou cancelada.");
+
+            if(status == Status.Expired && Status == Status.Cancelled)
+                throw new InvalidOperationException("Não é possível expirar uma reserva cancelada.");
+                
+            if(status == Status.Cancelled && Status == Status.Expired)
+                throw new InvalidOperationException("Não é possível cancelar uma reserva expirada.");
+
+            Status = status;
         }
     }
 }
