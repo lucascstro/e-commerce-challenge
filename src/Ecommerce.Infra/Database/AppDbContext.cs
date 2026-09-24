@@ -1,3 +1,4 @@
+using Ecommerce.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace Ecommerce.Infra.Database
@@ -6,6 +7,10 @@ namespace Ecommerce.Infra.Database
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         { }
+
+        public DbSet<Product> Products { get; set; }
+        public DbSet<Customer> Customers { get; set; }
+        public DbSet<Reservation> Reservations { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
