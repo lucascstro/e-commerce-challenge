@@ -43,20 +43,23 @@ namespace Ecommerce.Domain.Entities
 
         private void SetName(string name)
         {
+            if(string.IsNullOrWhiteSpace(name))
+                throw new DomainException("O nome não pode ser vazio ou espaço em branco.");
+            
+            name = name.Trim();
             if(name.Length > MaxNameLength)
                 throw new DomainException($"O nome não pode ter mais de {MaxNameLength} caracteres.");
 
             if(name.Length < MinNameLength)
                 throw new DomainException($"O nome não pode ter menos de {MinNameLength} caracteres.");
-
-            if(string.IsNullOrWhiteSpace(name))
-                throw new DomainException("O nome não pode ser vazio ou espaço em branco.");
                         
             Name = name;
         }
 
         private void SetDescription(string description)
         {
+            description = description.Trim();
+            
             if(string.Compare(description, Description) == 0)
                 throw new DomainException("A descrição não pode ser igual a anterior.");
 

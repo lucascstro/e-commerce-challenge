@@ -19,6 +19,7 @@ namespace Ecommerce.Domain.Entities
             if(string.IsNullOrWhiteSpace(name))
                 throw new DomainException("O nome não pode ser vazio ou espaços em branco.");
 
+            name = name.Trim();
             if(name.Length > MaxNameLength)
                 throw new DomainException($"O nome não pode ter mais de {MaxNameLength} caracteres.");
                 
