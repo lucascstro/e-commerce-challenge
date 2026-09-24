@@ -53,7 +53,7 @@ namespace Ecommerce.Application.Services.Reservation
                 throw new ArgumentException("Reserva não encontrada", nameof(reservationId));
 
             reservation.UpdateStatus(status);
-            await _reservationRepository.UpdateAsync(reservation, ct);
+            await _reservationRepository.UpdateStatusAsync(reservation, ct);
             return new UpdateReservationResponse(
                 reservation.ReservationId,
                 reservation.Status
