@@ -27,4 +27,9 @@ namespace Ecommerce.Application.Dtos.Response
         string Description,
         string Status
     );
+
+    public record CustomerResponse(
+        Guid CustomerId,
+        string Name
+    );
 }

@@ -1,5 +1,6 @@
 using Ecommerce.Application.Dtos.Request;
 using Ecommerce.Application.Dtos.Response;
+using Ecommerce.Domain.Entities.Enum;
 using Ecommerce.Domain.Repositories;
 
 namespace Ecommerce.Application.Services.Product
@@ -7,11 +8,13 @@ namespace Ecommerce.Application.Services.Product
     public class ProductService : IProductService
     {
         private readonly IProductRepository _productRepository;
+        private readonly IReservationRepository _reservationRepository;
         private readonly IUnitOfWork _unitOfWork;
 
-        public ProductService(IProductRepository productRepository, IUnitOfWork unitOfWork)
+        public ProductService(IProductRepository productRepository, IReservationRepository reservationRepository, IUnitOfWork unitOfWork)
         {
             _productRepository = productRepository;
+            _reservationRepository = reservationRepository;
             _unitOfWork = unitOfWork;
         }
 
@@ -67,6 +70,8 @@ namespace Ecommerce.Application.Services.Product
             if (product == null)
                 throw new InvalidOperationException("Produto não encontrado.");
 
+            await EnsureNoActiveReservationAsync(productId, ct);
+
             product.UpdateName(request.Name);
             product.UpdateDescription(request.Description);
 
@@ -103,8 +108,21 @@ namespace Ecommerce.Application.Services.Product
 
         public async Task DeleteProductAsync(Guid productId, CancellationToken ct)
         {
+            var product = await _productRepository.GetByIdAsync(productId);
+            if (product == null)
+                throw new InvalidOperationException("Produto não encontrado.");
+
+            await EnsureNoActiveReservationAsync(productId, ct);
+
             await _productRepository.DeleteAsync(productId);
             await _unitOfWork.SaveChangesAsync(ct);
+        }
+
+        private async Task EnsureNoActiveReservationAsync(Guid productId, CancellationToken ct)
+        {
+            var reservations = await _reservationRepository.GetByProductIdAsync(productId, ct);
+            if (reservations.Any(r => r.Status == StatusReservation.Active))
+                throw new InvalidOperationException("Não é possível alterar ou excluir um produto com reserva ativa.");
         }
 
     }

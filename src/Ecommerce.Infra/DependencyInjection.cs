@@ -15,6 +15,7 @@ namespace Ecommerce.Infra
                 options.UseInMemoryDatabase("EcommerceDb"));
             services.AddScoped<IReservationRepository, ReservationRepository>();
             services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<ICustomerRepository, CustomerRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddHostedService<ReservationExpirationValidationBackgroundService>();
 
