@@ -8,10 +8,12 @@ namespace Ecommerce.Application.Services.Reservation
     public class ReservationService : IReservationService
     {
         private readonly IReservationRepository _reservationRepository;
+        private readonly IProductRepository _productRepository;
 
-        public ReservationService(IReservationRepository reservationRepository)
+        public ReservationService(IReservationRepository reservationRepository, IProductRepository productRepository)
         {
             _reservationRepository = reservationRepository;
+            _productRepository = productRepository;
         }
 
         public async Task<IEnumerable<AllReservationsByCustomerResponse>> GetAllReservationsByCustomerAsync(Guid customerId, CancellationToken ct)
@@ -37,7 +39,11 @@ namespace Ecommerce.Application.Services.Reservation
                 throw new ArgumentException("O ID do produto não pode ser vazio", nameof(request.ProductId));
 
             var reservation = new Domain.Entities.Reservation(request.CustomerId, request.ProductId);
+            var product = await _productRepository.GetByIdAsync(request.ProductId);
+            product.MarkAsUnavailable();
+            
             await _reservationRepository.AddAsync(reservation, ct);
+            await _productRepository.UpdateAsync(product);
             
             return new CreateReservationResponse(
                 reservation.ReservationId,
@@ -58,12 +64,16 @@ namespace Ecommerce.Application.Services.Reservation
                 throw new ArgumentException("O ID da reserva não pode ser vazio", nameof(reservationId));
 
             var reservation = await _reservationRepository.GetByIdAsync(reservationId, ct);
+            var product = await _productRepository.GetByIdAsync(reservation.ProductId);
 
             if(reservation == null)
                 throw new ArgumentException("Reserva não encontrada", nameof(reservationId));
 
             reservation.UpdateStatus(status);
+            product.MarkAsAvailable();
+            await _productRepository.UpdateAsync(product);
             await _reservationRepository.UpdateStatusAsync(reservation, ct);
+
             return new UpdateReservationResponse(
                 reservation.ReservationId,
                 reservation.Status
