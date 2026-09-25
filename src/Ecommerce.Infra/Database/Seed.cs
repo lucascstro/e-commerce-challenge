@@ -42,6 +42,8 @@ namespace Ecommerce.Infra.Database
             };
 
             customers.ForEach(c => Console.WriteLine($"Customer: {c.CustomerId} - {c.Name}"));
+            reservations.ForEach(r => Console.WriteLine($"Reservation: {r.ReservationId} - Customer: {r.CustomerId} - Product: {r.ProductId}"));
+            products.ForEach(p => Console.WriteLine($"Product: {p.ProductId} - {p.Name} - {p.Description} - Available: {p.IsAvailable}"));
             ctx.Customers.AddRange(customers);
             ctx.Products.AddRange(products);
             ctx.Reservations.AddRange(reservations);
