@@ -6,7 +6,8 @@ namespace Ecommerce.Application.Dtos.Response
         Guid ReservationId,
         Guid ProductId,
         string Status,
-        DateTime CreatedAt
+        DateTime CreatedAt,
+        DateTime ExpiresAt
     );
 
     public record CreateReservationResponse(
