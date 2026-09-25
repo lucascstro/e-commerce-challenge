@@ -1,4 +1,5 @@
 using Ecommerce.Domain.Entities;
+using Ecommerce.Domain.Entities.Enum;
 using Ecommerce.Domain.Repositories;
 using Ecommerce.Infra.Database;
 using Microsoft.EntityFrameworkCore;
@@ -30,7 +31,10 @@ namespace Ecommerce.Infra.Repositories
         
         public async Task<IEnumerable<Reservation>> GetByProductIdAsync(Guid productId, CancellationToken ct = default)
             => await _context.Reservations.AsNoTracking().Where(r => r.ProductId == productId).ToListAsync(ct);
-        
+
+        public async Task<IEnumerable<Reservation>> GetByStatusAsync(StatusReservation status, CancellationToken ct = default)
+            => await _context.Reservations.AsNoTracking().Where(r => r.Status == status).ToListAsync(ct);
+
         public async Task AddAsync(Reservation reservation, CancellationToken ct = default)
         {
             await _context.Reservations.AddAsync(reservation);

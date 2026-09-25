@@ -47,6 +47,19 @@ namespace Ecommerce.Application.Services.Reservation
             ));
         }
 
+        public async Task<IEnumerable<ReservationsResponse>> GetReservationsByStatusAsync(StatusReservation status, CancellationToken ct)
+        {
+            var reservations = await _reservationRepository.GetByStatusAsync(status, ct);
+            return reservations.Select(r => new ReservationsResponse
+            (
+                r.ReservationId,
+                r.ProductId,
+                r.Status.ToString(),
+                r.CreatedAt,
+                r.ExpiresAt
+            ));
+        }
+
         public async Task<CreateReservationResponse> CreateReservationAsync(CreateReservationRequest request, CancellationToken ct)
         {
             if (request.CustomerId == Guid.Empty)

@@ -29,14 +29,13 @@ namespace Ecommerce.Infra.BackgroundServices
                     var serviceReservation = serviceScope.ServiceProvider.GetRequiredService<IReservationService>();
                     var serviceProduct = serviceScope.ServiceProvider.GetRequiredService<IProductService>();
 
-                    var reservations = await serviceReservation.GetAllReservations(ct);
+                    var reservations = await serviceReservation.GetReservationsByStatusAsync(StatusReservation.Active, ct);
 
                     foreach (var reservation in reservations)
                     {
                         _logger.LogInformation($"Dados inicial da Reserva:  Id:{reservation.ReservationId} - CreatedAt: {reservation.CreatedAt} - ExpiresAt: {reservation.ExpiresAt} - Status: {reservation.Status}");
 
-                        if (reservation.ExpiresAt <= DateTime.Now &&
-                            reservation.Status == StatusReservation.Active.ToString())
+                        if (reservation.ExpiresAt <= DateTime.Now)
                         {
                             var updated = await serviceReservation.UpdateReservationToStatusExpiredAsync(reservation.ReservationId, ct);
                             _logger.LogInformation($"Reserva de Id {updated.ReservationId} expirada e atualizada para status '{updated.Status}'.");

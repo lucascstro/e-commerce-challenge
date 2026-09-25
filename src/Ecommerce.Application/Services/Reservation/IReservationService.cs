@@ -1,5 +1,6 @@
 using Ecommerce.Application.Dtos.Request;
 using Ecommerce.Application.Dtos.Response;
+using Ecommerce.Domain.Entities.Enum;
 
 namespace Ecommerce.Application.Services.Reservation
 {
@@ -7,6 +8,7 @@ namespace Ecommerce.Application.Services.Reservation
     {
         public Task<IEnumerable<ReservationsResponse>> GetAllReservations(CancellationToken ct);
         public Task<IEnumerable<ReservationsResponse>> GetAllReservationsByCustomerAsync(Guid customerId, CancellationToken ct);
+        public Task<IEnumerable<ReservationsResponse>> GetReservationsByStatusAsync(StatusReservation status, CancellationToken ct);
         public Task<CreateReservationResponse> CreateReservationAsync(CreateReservationRequest request, CancellationToken ct);
         public Task<UpdateReservationResponse> UpdateReservationToStatusExpiredAsync(Guid reservationId, CancellationToken ct);
         public Task<UpdateReservationResponse> UpdateReservationToStatusCancelledAsync(Guid reservationId, CancellationToken ct);
