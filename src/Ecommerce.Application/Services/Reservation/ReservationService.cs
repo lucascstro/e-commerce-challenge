@@ -28,7 +28,7 @@ namespace Ecommerce.Application.Services.Reservation
             ));
         }
 
-        public Task<CreateReservationResponse> CreateReservationAsync(CreateReservationRequest request, CancellationToken ct)
+        public async Task<CreateReservationResponse> CreateReservationAsync(CreateReservationRequest request, CancellationToken ct)
         {
             if (request.CustomerId == Guid.Empty)
                 throw new ArgumentException("O ID do cliente não pode ser vazio", nameof(request.CustomerId));
@@ -36,26 +36,28 @@ namespace Ecommerce.Application.Services.Reservation
                 throw new ArgumentException("O ID do produto não pode ser vazio", nameof(request.ProductId));
 
             var reservation = new Domain.Entities.Reservation(request.CustomerId, request.ProductId);
-            return Task.FromResult(new CreateReservationResponse(
+            await _reservationRepository.AddAsync(reservation, ct);
+            
+            return new CreateReservationResponse(
                 reservation.ReservationId,
                 reservation.ProductId,
                 reservation.CreatedAt
-            ));
+            );
         }
 
         public async Task<UpdateReservationResponse> UpdateReservationToStatusExpiredAsync(Guid reservationId, CancellationToken ct)
             => await UpdateReservationStatusAsync(reservationId, Status.Expired, ct);
-        
+
         public async Task<UpdateReservationResponse> UpdateReservationToStatusCancelledAsync(Guid reservationId, CancellationToken ct)
             => await UpdateReservationStatusAsync(reservationId, Status.Cancelled, ct);
-        
+
         private async Task<UpdateReservationResponse> UpdateReservationStatusAsync(Guid reservationId, Status status, CancellationToken ct)
         {
             if (reservationId == Guid.Empty)
                 throw new ArgumentException("O ID da reserva não pode ser vazio", nameof(reservationId));
-            
+
             var reservation = await _reservationRepository.GetByIdAsync(reservationId, ct);
-            
+
             if(reservation == null)
                 throw new ArgumentException("Reserva não encontrada", nameof(reservationId));
 
