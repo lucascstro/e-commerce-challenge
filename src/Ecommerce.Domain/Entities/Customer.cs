@@ -10,10 +10,10 @@ namespace Ecommerce.Domain.Entities
         public Guid CustomerId { get; private set; } = Guid.NewGuid();
         public string Name { get; private set; }
 
-        public Customer(string name, Guid? id = null)
+        public Customer(string name, Guid customerId = default)
         {
-            if (id.HasValue)
-                CustomerId = id.Value;
+            if (customerId != Guid.Empty)
+                CustomerId = customerId;
 
             SetName(name);
         }

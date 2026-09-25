@@ -12,7 +12,7 @@ namespace Ecommerce.Domain.Entities
         public DateTime ExpiresAt { get; private set; } = DateTime.Now.AddMinutes(1);
         public StatusReservation Status { get; private set; } = StatusReservation.Active;
 
-        public Reservation(Guid customerId, Guid productId, Guid? id = null)
+        public Reservation(Guid customerId, Guid productId, Guid reservationId = default)
         {
             if(customerId == Guid.Empty)
                 throw new DomainException("O ID do cliente não pode ser vazio.");
@@ -20,8 +20,8 @@ namespace Ecommerce.Domain.Entities
             if(productId == Guid.Empty)
                 throw new DomainException("O ID do produto não pode ser vazio.");
 
-            if (id.HasValue)
-                ReservationId = id.Value;
+            if (reservationId != Guid.Empty)
+                ReservationId = reservationId;
 
             CustomerId = customerId;
             ProductId = productId;
