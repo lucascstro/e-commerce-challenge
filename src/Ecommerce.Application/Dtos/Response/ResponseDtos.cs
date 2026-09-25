@@ -18,4 +18,11 @@ namespace Ecommerce.Application.Dtos.Response
         Guid ReservationId,
         Status Status
     );
+
+    public record ProductResponse(
+        Guid ProductId,
+        string Name,
+        string Description,
+        bool IsAvailable
+    );
 }

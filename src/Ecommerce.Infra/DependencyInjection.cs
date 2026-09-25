@@ -12,6 +12,7 @@ namespace Ecommerce.Infra
             services.AddDbContext<Database.AppDbContext>(options =>
                 options.UseInMemoryDatabase("EcommerceDb"));
             services.AddScoped<IReservationRepository, ReservationRepository>();
+            services.AddScoped<IProductRepository, ProductRepository>();
 
             return services;
         }
