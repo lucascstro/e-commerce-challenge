@@ -1,3 +1,4 @@
+using Ecommerce.Domain.Exceptions;
 using Ecommerce.Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
 
@@ -20,9 +21,9 @@ namespace Ecommerce.Infra.Database
             }
             catch (DbUpdateConcurrencyException)
             {
-                throw new Exception("O recurso foi alterado por outra operação. Tente novamente.");
+                throw new ConcurrencyException("O recurso foi alterado por outra operação. Tente novamente.");
             }
         }
-        
+
     }
 }
