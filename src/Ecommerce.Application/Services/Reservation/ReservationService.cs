@@ -1,3 +1,4 @@
+using Ecommerce.Application.Dtos.Request;
 using Ecommerce.Application.Dtos.Response;
 using Ecommerce.Domain.Entities.Enum;
 using Ecommerce.Domain.Repositories;
@@ -27,14 +28,14 @@ namespace Ecommerce.Application.Services.Reservation
             ));
         }
 
-        public Task<CreateReservationResponse> CreateReservationAsync(Guid customerId, Guid productId, CancellationToken ct)
+        public Task<CreateReservationResponse> CreateReservationAsync(CreateReservationRequest request, CancellationToken ct)
         {
-            if (customerId == Guid.Empty)
-                throw new ArgumentException("O ID do cliente não pode ser vazio", nameof(customerId));
-            if (productId == Guid.Empty)
-                throw new ArgumentException("O ID do produto não pode ser vazio", nameof(productId));
+            if (request.CustomerId == Guid.Empty)
+                throw new ArgumentException("O ID do cliente não pode ser vazio", nameof(request.CustomerId));
+            if (request.ProductId == Guid.Empty)
+                throw new ArgumentException("O ID do produto não pode ser vazio", nameof(request.ProductId));
 
-            var reservation = new Domain.Entities.Reservation(customerId, productId);
+            var reservation = new Domain.Entities.Reservation(request.CustomerId, request.ProductId);
             return Task.FromResult(new CreateReservationResponse(
                 reservation.ReservationId,
                 reservation.ProductId,
@@ -42,7 +43,13 @@ namespace Ecommerce.Application.Services.Reservation
             ));
         }
 
-        public async Task<UpdateReservationResponse> UpdateReservationStatusAsync(Guid reservationId, Status status, CancellationToken ct)
+        public async Task<UpdateReservationResponse> UpdateReservationToStatusExpiredAsync(Guid reservationId, CancellationToken ct)
+            => await UpdateReservationStatusAsync(reservationId, Status.Expired, ct);
+        
+        public async Task<UpdateReservationResponse> UpdateReservationToStatusCancelledAsync(Guid reservationId, CancellationToken ct)
+            => await UpdateReservationStatusAsync(reservationId, Status.Cancelled, ct);
+        
+        private async Task<UpdateReservationResponse> UpdateReservationStatusAsync(Guid reservationId, Status status, CancellationToken ct)
         {
             if (reservationId == Guid.Empty)
                 throw new ArgumentException("O ID da reserva não pode ser vazio", nameof(reservationId));
