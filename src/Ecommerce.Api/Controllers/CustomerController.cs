@@ -17,7 +17,7 @@ namespace Ecommerce.Api.Controllers
         }
 
         [HttpGet("{id_customer}/reservations")]
-        public async Task<IActionResult> GetAllReservations(Guid id_customer, CancellationToken ct)
+        public async Task<IActionResult> GetAllReservationsByCustomer(Guid id_customer, CancellationToken ct)
         {
             var reservations = await _reservationService.GetAllReservationsByCustomerAsync(id_customer, ct);
             return Ok(reservations);
