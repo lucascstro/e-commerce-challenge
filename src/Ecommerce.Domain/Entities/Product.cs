@@ -16,6 +16,9 @@ namespace Ecommerce.Domain.Entities
 
         public Product(string name, string description, StatusProduct status, Guid productId = default)
         {
+            if (productId == Guid.Empty && status == StatusProduct.Reserved)
+                throw new DomainException("Não é possível criar um produto já como reservado.");
+
             if (productId != Guid.Empty)
                 ProductId = productId;
 

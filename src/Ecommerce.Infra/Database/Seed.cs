@@ -23,9 +23,9 @@ namespace Ecommerce.Infra.Database
 
             var products = new List<Product>
             {
-                new("Carro", "Sedan 4 portas, motor 1.6, câmbio automático", StatusProduct.Reserved, Guid.Parse("20000000-0000-0000-0000-000000000001")),
-                new("Moto", "Motocicleta 160cc, ideal para uso urbano", StatusProduct.Reserved, Guid.Parse("20000000-0000-0000-0000-000000000002")),
-                new("Bicicleta", "Bicicleta aro 29 com 21 marchas", StatusProduct.Reserved, Guid.Parse("20000000-0000-0000-0000-000000000003")),
+                new("Carro", "Sedan 4 portas, motor 1.6, câmbio automático", StatusProduct.Available, Guid.Parse("20000000-0000-0000-0000-000000000001")),
+                new("Moto", "Motocicleta 160cc, ideal para uso urbano", StatusProduct.Available, Guid.Parse("20000000-0000-0000-0000-000000000002")),
+                new("Bicicleta", "Bicicleta aro 29 com 21 marchas", StatusProduct.Available, Guid.Parse("20000000-0000-0000-0000-000000000003")),
                 new("Patinete Elétrico", "Patinete com autonomia de 25 km e velocidade máxima de 25 km/h", StatusProduct.Available),
                 new("Skate", "Skate completo com shape de maple canadense", StatusProduct.Available),
                 new("Capacete", "Capacete fechado com viseira antirrisco", StatusProduct.Available),
@@ -41,6 +41,10 @@ namespace Ecommerce.Infra.Database
                 new(customers[1].CustomerId, products[1].ProductId, Guid.Parse("30000000-0000-0000-0000-000000000002")),
                 new(customers[2].CustomerId, products[0].ProductId, Guid.Parse("30000000-0000-0000-0000-000000000003")),
             };
+
+            products[0].MarkAsReserved();
+            products[1].MarkAsReserved();
+            products[2].MarkAsReserved();
 
             customers.ForEach(c => Console.WriteLine($"Customer: {c.CustomerId} - {c.Name}"));
             reservations.ForEach(r => Console.WriteLine($"Reservation: {r.ReservationId} - Customer: {r.CustomerId} - Product: {r.ProductId}"));
