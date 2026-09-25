@@ -22,9 +22,16 @@ namespace Ecommerce.Infra.Database
 
             var products = new List<Product>
             {
-                new("Carro", "Descrição do carro", true),
-                new("Moto", "Descrição da moto", true),
-                new("Produto 3", "Descrição do produto 3", true),
+                new("Carro", "Sedan 4 portas, motor 1.6, câmbio automático", false),
+                new("Moto", "Motocicleta 160cc, ideal para uso urbano", false),
+                new("Bicicleta", "Bicicleta aro 29 com 21 marchas", false),
+                new("Patinete Elétrico", "Patinete com autonomia de 25 km e velocidade máxima de 25 km/h", true),
+                new("Skate", "Skate completo com shape de maple canadense", true),
+                new("Capacete", "Capacete fechado com viseira antirrisco", true),
+                new("Luva de Proteção", "Luva de couro com proteção nos dedos", true),
+                new("Cadeado", "Cadeado em U de aço temperado", true),
+                new("Bomba de Ar", "Bomba de ar portátil com manômetro", true),
+                new("Kit de Ferramentas", "Kit com chaves e reparos para bicicleta e moto", true)
             };
 
             var reservations = new List<Reservation>
