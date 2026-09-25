@@ -5,7 +5,7 @@ namespace Ecommerce.Application.Dtos.Response
     public record AllReservationsByCustomerResponse(
         Guid ReservationId,
         Guid ProductId,
-        String Status,
+        string Status,
         DateTime CreatedAt
     );
 
@@ -17,7 +17,7 @@ namespace Ecommerce.Application.Dtos.Response
 
     public record UpdateReservationResponse(
         Guid ReservationId,
-        Status Status
+        StatusReservation Status
     );
 
     public record ProductResponse(

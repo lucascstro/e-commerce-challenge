@@ -1,6 +1,6 @@
 namespace Ecommerce.Domain.Entities.Enum
 {
-    public enum Status
+    public enum StatusReservation
     {   
         Active,
         Expired,

@@ -53,12 +53,12 @@ namespace Ecommerce.Application.Services.Reservation
         }
 
         public async Task<UpdateReservationResponse> UpdateReservationToStatusExpiredAsync(Guid reservationId, CancellationToken ct)
-            => await UpdateReservationStatusAsync(reservationId, Status.Expired, ct);
+            => await UpdateReservationStatusAsync(reservationId, StatusReservation.Expired, ct);
 
         public async Task<UpdateReservationResponse> UpdateReservationToStatusCancelledAsync(Guid reservationId, CancellationToken ct)
-            => await UpdateReservationStatusAsync(reservationId, Status.Cancelled, ct);
+            => await UpdateReservationStatusAsync(reservationId, StatusReservation.Cancelled, ct);
 
-        private async Task<UpdateReservationResponse> UpdateReservationStatusAsync(Guid reservationId, Status status, CancellationToken ct)
+        private async Task<UpdateReservationResponse> UpdateReservationStatusAsync(Guid reservationId, StatusReservation status, CancellationToken ct)
         {
             if (reservationId == Guid.Empty)
                 throw new ArgumentException("O ID da reserva não pode ser vazio", nameof(reservationId));
