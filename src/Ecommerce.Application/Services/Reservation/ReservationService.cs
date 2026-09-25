@@ -9,11 +9,13 @@ namespace Ecommerce.Application.Services.Reservation
     {
         private readonly IReservationRepository _reservationRepository;
         private readonly IProductRepository _productRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public ReservationService(IReservationRepository reservationRepository, IProductRepository productRepository)
+        public ReservationService(IReservationRepository reservationRepository, IProductRepository productRepository, IUnitOfWork unitOfWork)
         {
             _reservationRepository = reservationRepository;
             _productRepository = productRepository;
+            _unitOfWork = unitOfWork;
         }
 
         public async Task<IEnumerable<AllReservationsByCustomerResponse>> GetAllReservationsByCustomerAsync(Guid customerId, CancellationToken ct)
@@ -44,6 +46,7 @@ namespace Ecommerce.Application.Services.Reservation
             
             await _reservationRepository.AddAsync(reservation, ct);
             await _productRepository.UpdateAsync(product);
+            await _unitOfWork.SaveChangesAsync(ct);
             
             return new CreateReservationResponse(
                 reservation.ReservationId,
@@ -73,6 +76,7 @@ namespace Ecommerce.Application.Services.Reservation
             product.MarkAsAvailable();
             await _productRepository.UpdateAsync(product);
             await _reservationRepository.UpdateStatusAsync(reservation, ct);
+            await _unitOfWork.SaveChangesAsync(ct);
 
             return new UpdateReservationResponse(
                 reservation.ReservationId,

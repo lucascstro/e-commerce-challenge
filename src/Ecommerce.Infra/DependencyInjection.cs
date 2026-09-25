@@ -1,4 +1,5 @@
 using Ecommerce.Domain.Repositories;
+using Ecommerce.Infra.Database;
 using Ecommerce.Infra.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -13,6 +14,7 @@ namespace Ecommerce.Infra
                 options.UseInMemoryDatabase("EcommerceDb"));
             services.AddScoped<IReservationRepository, ReservationRepository>();
             services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             return services;
         }

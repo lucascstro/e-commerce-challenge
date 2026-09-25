@@ -34,20 +34,17 @@ namespace Ecommerce.Infra.Repositories
         public async Task AddAsync(Reservation reservation, CancellationToken ct = default)
         {
             await _context.Reservations.AddAsync(reservation);
-            await _context.SaveChangesAsync(ct);
         }
 
         public async Task DeleteAsync(Guid reservationId, CancellationToken ct = default)
         {
             var reservation = _context.Reservations.FirstOrDefault(r => r.ReservationId == reservationId);
             _context.Reservations.Remove(reservation);
-            await _context.SaveChangesAsync(ct);
         }
 
         public async Task UpdateStatusAsync(Reservation reservation, CancellationToken ct = default)
         {
             _context.Reservations.Update(reservation);
-            await _context.SaveChangesAsync(ct);
         }
     }
 }

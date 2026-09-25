@@ -12,6 +12,7 @@ namespace Ecommerce.Domain.Entities
         public string Name { get; private set; }
         public string? Description { get; private set; }
         public StatusProduct Status { get; private set; }
+        public byte[] RowVersion { get; private set; } = Array.Empty<byte>(); 
 
         public Product(string name, string description, StatusProduct status)
         {
