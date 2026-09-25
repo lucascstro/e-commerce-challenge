@@ -52,7 +52,7 @@ namespace Ecommerce.Infra.BackgroundServices
                 }
 
                 _logger.LogInformation("Verificação de expiração de reservas finalizada.");
-                await Task.Delay(TimeSpan.FromSeconds(30), ct);
+                await Task.Delay(TimeSpan.FromMinutes(5), ct);
             }
         }
     }
