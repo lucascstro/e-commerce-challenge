@@ -43,7 +43,7 @@ namespace Ecommerce.Domain.Entities
         public void MarkAsReserved()
         {
             if(Status == StatusProduct.Unavailable)
-                throw new InvalidOperationException("O produto já está indisponível.");
+                throw new InvalidOperationException("O produto está indisponível.");
 
             if(Status == StatusProduct.Reserved)
                 throw new InvalidOperationException("O produto já está reservado.");
