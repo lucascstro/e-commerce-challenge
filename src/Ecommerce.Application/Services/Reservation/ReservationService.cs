@@ -24,6 +24,7 @@ namespace Ecommerce.Application.Services.Reservation
             (
                 r.ReservationId,
                 r.ProductId,
+                r.Status.ToString(),
                 r.CreatedAt
             ));
         }

@@ -5,6 +5,7 @@ namespace Ecommerce.Application.Dtos.Response
     public record AllReservationsByCustomerResponse(
         Guid ReservationId,
         Guid ProductId,
+        String Status,
         DateTime CreatedAt
     );
 
