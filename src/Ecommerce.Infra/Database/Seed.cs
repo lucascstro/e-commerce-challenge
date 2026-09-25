@@ -1,4 +1,5 @@
 using Ecommerce.Domain.Entities;
+using Ecommerce.Domain.Entities.Enum;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -22,16 +23,16 @@ namespace Ecommerce.Infra.Database
 
             var products = new List<Product>
             {
-                new("Carro", "Sedan 4 portas, motor 1.6, câmbio automático", false),
-                new("Moto", "Motocicleta 160cc, ideal para uso urbano", false),
-                new("Bicicleta", "Bicicleta aro 29 com 21 marchas", false),
-                new("Patinete Elétrico", "Patinete com autonomia de 25 km e velocidade máxima de 25 km/h", true),
-                new("Skate", "Skate completo com shape de maple canadense", true),
-                new("Capacete", "Capacete fechado com viseira antirrisco", true),
-                new("Luva de Proteção", "Luva de couro com proteção nos dedos", true),
-                new("Cadeado", "Cadeado em U de aço temperado", true),
-                new("Bomba de Ar", "Bomba de ar portátil com manômetro", true),
-                new("Kit de Ferramentas", "Kit com chaves e reparos para bicicleta e moto", true)
+                new("Carro", "Sedan 4 portas, motor 1.6, câmbio automático", StatusProduct.Reserved),
+                new("Moto", "Motocicleta 160cc, ideal para uso urbano", StatusProduct.Reserved),
+                new("Bicicleta", "Bicicleta aro 29 com 21 marchas", StatusProduct.Reserved),
+                new("Patinete Elétrico", "Patinete com autonomia de 25 km e velocidade máxima de 25 km/h", StatusProduct.Available),
+                new("Skate", "Skate completo com shape de maple canadense", StatusProduct.Available),
+                new("Capacete", "Capacete fechado com viseira antirrisco", StatusProduct.Available),
+                new("Luva de Proteção", "Luva de couro com proteção nos dedos", StatusProduct.Available),
+                new("Cadeado", "Cadeado em U de aço temperado", StatusProduct.Available),
+                new("Bomba de Ar", "Bomba de ar portátil com manômetro", StatusProduct.Available),
+                new("Kit de Ferramentas", "Kit com chaves e reparos para bicicleta e moto", StatusProduct.Available)
             };
 
             var reservations = new List<Reservation>
@@ -43,7 +44,7 @@ namespace Ecommerce.Infra.Database
 
             customers.ForEach(c => Console.WriteLine($"Customer: {c.CustomerId} - {c.Name}"));
             reservations.ForEach(r => Console.WriteLine($"Reservation: {r.ReservationId} - Customer: {r.CustomerId} - Product: {r.ProductId}"));
-            products.ForEach(p => Console.WriteLine($"Product: {p.ProductId} - {p.Name} - {p.Description} - Available: {p.IsAvailable}"));
+            products.ForEach(p => Console.WriteLine($"Product: {p.ProductId} - {p.Name} - {p.Description} - Available: {p.Status}"));
             ctx.Customers.AddRange(customers);
             ctx.Products.AddRange(products);
             ctx.Reservations.AddRange(reservations);

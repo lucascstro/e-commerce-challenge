@@ -13,12 +13,12 @@ namespace Ecommerce.Application.Services.Product
             _productRepository = productRepository;
         }
 
-        public async Task<ProductResponse> CreateProductAsync(CreateProductRequest request, CancellationToken ct)
+        public async Task<ProductResponse> CreateProductAsync(ProductRequest request, CancellationToken ct)
         {
             var product = new Domain.Entities.Product(
                 request.Name,
                 request.Description,
-                request.IsAvailable
+                request.Status
             );
 
             await _productRepository.AddAsync(product);
@@ -27,7 +27,7 @@ namespace Ecommerce.Application.Services.Product
                 product.ProductId,
                 product.Name,
                 product.Description,
-                product.IsAvailable
+                product.Status.ToString()
             );
         }
 
@@ -39,7 +39,7 @@ namespace Ecommerce.Application.Services.Product
                     p.ProductId,
                     p.Name,
                     p.Description,
-                    p.IsAvailable
+                    p.Status.ToString()
                 ))
             );
         }
@@ -54,11 +54,11 @@ namespace Ecommerce.Application.Services.Product
                 product.ProductId,
                 product.Name,
                 product.Description,
-                product.IsAvailable
+                product.Status.ToString()
             );
         }
 
-        public async Task<ProductResponse> UpdateProductAsync(Guid productId, CreateProductRequest request, CancellationToken ct)
+        public async Task<ProductResponse> UpdateProductAsync(Guid productId, ProductRequest request, CancellationToken ct)
         {
             var product = await _productRepository.GetByIdAsync(productId);
             if (product == null)
@@ -73,7 +73,7 @@ namespace Ecommerce.Application.Services.Product
                 product.ProductId,
                 product.Name,
                 product.Description,
-                product.IsAvailable
+                product.Status.ToString()
             );
         }
         public async Task ReserveProductAsync(Guid productId, CancellationToken ct)

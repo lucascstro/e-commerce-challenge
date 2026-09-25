@@ -24,6 +24,6 @@ namespace Ecommerce.Application.Dtos.Response
         Guid ProductId,
         string Name,
         string Description,
-        bool IsAvailable
+        string Status
     );
 }

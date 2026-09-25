@@ -56,7 +56,7 @@ namespace Ecommerce.Domain.Tests
             var customerId = Guid.NewGuid();
             var productId = Guid.NewGuid();
             var reservation = new Reservation(customerId, productId);
-            Assert.Equal(Status.Active, reservation.Status);
+            Assert.Equal(StatusReservation.Active, reservation.Status);
         }
 
         [Fact]
@@ -65,8 +65,8 @@ namespace Ecommerce.Domain.Tests
             var customerId = Guid.NewGuid();
             var productId = Guid.NewGuid();
             var reservation = new Reservation(customerId, productId);
-            reservation.UpdateStatus(Status.Expired);
-            Assert.Equal(Status.Expired, reservation.Status);
+            reservation.UpdateStatus(StatusReservation.Expired);
+            Assert.Equal(StatusReservation.Expired, reservation.Status);
         }
     }
 }

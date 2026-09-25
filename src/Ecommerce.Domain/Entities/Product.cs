@@ -1,3 +1,4 @@
+using Ecommerce.Domain.Entities.Enum;
 using Ecommerce.Domain.Exceptions;
 
 namespace Ecommerce.Domain.Entities
@@ -10,35 +11,44 @@ namespace Ecommerce.Domain.Entities
         public Guid ProductId { get; private set; } = Guid.NewGuid();
         public string Name { get; private set; }
         public string? Description { get; private set; }
-        public bool IsAvailable { get; private set; }
+        public StatusProduct Status { get; private set; }
 
-        public Product(string name, string description, bool isAvailable)
+        public Product(string name, string description, StatusProduct status)
         {
             SetName(name);
             SetDescription(description);
-            IsAvailable = isAvailable;
+            Status = status;
         }
 
         public void UpdateName(string name) => SetName(name);
         
         public void UpdateDescription(string description) => SetDescription(description);
 
-        public bool MarkAsUnavailable()
+        public void MarkAsUnavailable()
         {
-            if(IsAvailable == false)
+            if(Status == StatusProduct.Unavailable)
                 throw new InvalidOperationException("O produto já está indisponível.");
 
-            IsAvailable = false;
-            return IsAvailable;
+            Status = StatusProduct.Unavailable;
         }
 
-        public bool MarkAsAvailable()
+        public void MarkAsAvailable()
         {
-            if(IsAvailable == true)
+            if(Status == StatusProduct.Available)
                 throw new InvalidOperationException("O produto já está disponível.");
 
-            IsAvailable = true;
-            return IsAvailable;
+            Status = StatusProduct.Available;
+        }
+
+        public void MarkAsReserved()
+        {
+            if(Status == StatusProduct.Unavailable)
+                throw new InvalidOperationException("O produto já está indisponível.");
+
+            if(Status == StatusProduct.Reserved)
+                throw new InvalidOperationException("O produto já está reservado.");
+
+            Status = StatusProduct.Reserved;
         }
 
         private void SetName(string name)

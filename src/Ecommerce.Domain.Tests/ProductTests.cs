@@ -1,4 +1,5 @@
 using Ecommerce.Domain.Entities;
+using Ecommerce.Domain.Entities.Enum;
 using Xunit;
 
 namespace Ecommerce.Domain.Tests
@@ -11,7 +12,7 @@ namespace Ecommerce.Domain.Tests
             var name = "Produto Teste";
             var description = "Descrição do Produto Teste";
             var isAvailable = true;
-            var product = new Product(name, description, isAvailable);
+            var product = new Product(name, description, StatusProduct.Available);
             Assert.IsType<Guid>(product.ProductId);
         }
 
@@ -21,7 +22,7 @@ namespace Ecommerce.Domain.Tests
             var name = "Produto Teste";
             var description = "Descrição do Produto Teste";
             var isAvailable = true;
-            var product = new Product(name, description, isAvailable);
+            var product = new Product(name, description, StatusProduct.Available);
             Assert.Equal(name, product.Name);
         }
 
@@ -31,7 +32,7 @@ namespace Ecommerce.Domain.Tests
             var name = "Produto Teste";
             var description = "Descrição do Produto Teste";
             var isAvailable = true;
-            var product = new Product(name, description, isAvailable);
+            var product = new Product(name, description, StatusProduct.Available);
             Assert.Equal(description, product.Description);
         }
 
@@ -41,8 +42,8 @@ namespace Ecommerce.Domain.Tests
             var name = "Produto Teste";
             var description = "Descrição do Produto Teste";
             var isAvailable = true;
-            var product = new Product(name, description, isAvailable);
-            Assert.Equal(isAvailable, product.IsAvailable);
+            var product = new Product(name, description, StatusProduct.Available);
+            Assert.Equal(isAvailable, product.Status == StatusProduct.Available);
         }
 
         [Fact]
@@ -51,9 +52,9 @@ namespace Ecommerce.Domain.Tests
             var name = "Produto Teste";
             var description = "Descrição do Produto Teste";
             var isAvailable = true;
-            var product = new Product(name, description, isAvailable);
+            var product = new Product(name, description, StatusProduct.Available);
             product.MarkAsUnavailable();
-            Assert.False(product.IsAvailable);
+            Assert.Equal(StatusProduct.Unavailable, product.Status);
         }
         
         [Fact]
@@ -62,9 +63,9 @@ namespace Ecommerce.Domain.Tests
             var name = "Produto Teste";
             var description = "Descrição do Produto Teste";
             var isAvailable = false;
-            var product = new Product(name, description, isAvailable);
+            var product = new Product(name, description, StatusProduct.Unavailable);
             product.MarkAsAvailable();
-            Assert.True(product.IsAvailable);
+            Assert.Equal(StatusProduct.Available, product.Status);
         }
     }
 }
