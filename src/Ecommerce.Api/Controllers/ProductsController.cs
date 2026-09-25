@@ -27,6 +27,34 @@ namespace Ecommerce.Api.Controllers
             return Ok(products);
         }
 
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById(Guid id, CancellationToken ct)
+        {
+            var product = await _productService.GetProductByIdAsync(id, ct);
+            return Ok(product);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create([FromBody] ProductRequest request, CancellationToken ct)
+        {
+            var product = await _productService.CreateProductAsync(request, ct);
+            return CreatedAtAction(nameof(GetById), new { id = product.ProductId }, product);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Update(Guid id, [FromBody] ProductRequest request, CancellationToken ct)
+        {
+            var product = await _productService.UpdateProductAsync(id, request, ct);
+            return Ok(product);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(Guid id, CancellationToken ct)
+        {
+            await _productService.DeleteProductAsync(id, ct);
+            return NoContent();
+        }
+
         [HttpPost("{id}/reserve")]
         public async Task<IActionResult> ReserveProduct(Guid id, [FromQuery] Guid customer_id, CancellationToken ct)
         {
