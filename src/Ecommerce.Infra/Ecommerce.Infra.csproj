@@ -1,8 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
-    <ProjectReference Include="..\ecommerce.domain\Ecommerce.Domain.csproj" />
-    <ProjectReference Include="..\ecommerce.application\Ecommerce.Application.csproj" />
+    <ProjectReference Include="..\Ecommerce.Domain\Ecommerce.Domain.csproj" />
+    <ProjectReference Include="..\Ecommerce.Application\Ecommerce.Application.csproj" />
   </ItemGroup>
 
   <ItemGroup>
