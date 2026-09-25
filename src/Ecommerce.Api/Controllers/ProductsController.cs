@@ -16,13 +16,13 @@ namespace Ecommerce.Api.Controllers
             _reservationService = reservationService;
         }
 
-        [HttpPost("{id}/reserve")]
-        public async Task<IActionResult> ReserveProduct(Guid id, CancellationToken ct)
+        [HttpPost("{product_id}/{customer_id}/reserve")]
+        public async Task<IActionResult> ReserveProduct(Guid id_product, Guid id_customer, CancellationToken ct)
         {
             //TODO verificar se utilizar o controle de usuários é um problema (pois no requisito menciona somente o ID DO PRODUTO na requisição). 
             //Gero o id do cliente aleatoriamente e a ideia era pegar o id do cliente logado ao fazer reserva.
             
-            var reservationResponse = await _reservationService.CreateReservationAsync(Guid.NewGuid(), id, ct);
+            var reservationResponse = await _reservationService.CreateReservationAsync(id_customer, id_product, ct);
             return Ok(reservationResponse);
         }
     }
