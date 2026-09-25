@@ -1,13 +1,19 @@
+using Ecommerce.Application;
+using Ecommerce.Infra;
+using Ecommerce.Infra.Database;
+using Scalar.AspNetCore;
 
 namespace Ecommerce.Api;
 
 public class Program
 {
-    public static void Main(string[] args)
+    public static async Task Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
 
         // Add services to the container.
+        builder.Services.AddApplication()
+                        .AddInfra();
 
         builder.Services.AddControllers();
         // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
@@ -19,6 +25,8 @@ public class Program
         if (app.Environment.IsDevelopment())
         {
             app.MapOpenApi();
+            app.MapScalarApiReference();
+            await Seed.SeedAsync(app.Services);
         }
 
         app.UseHttpsRedirection();
