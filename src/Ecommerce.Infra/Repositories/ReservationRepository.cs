@@ -13,7 +13,7 @@ namespace Ecommerce.Infra.Repositories
         {
             _context = context;
         }
-        public async Task<IEnumerable<Reservation>> GetAllAsync()
+        public async Task<IEnumerable<Reservation>> GetAllAsync(CancellationToken ct)
             => await _context.Reservations.AsNoTracking().ToListAsync();
 
         public async Task<IEnumerable<Reservation>> GetByCustomerIdAsync(Guid customerId, CancellationToken ct)

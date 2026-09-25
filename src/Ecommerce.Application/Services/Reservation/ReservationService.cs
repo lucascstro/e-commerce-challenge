@@ -18,13 +18,25 @@ namespace Ecommerce.Application.Services.Reservation
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<IEnumerable<AllReservationsByCustomerResponse>> GetAllReservationsByCustomerAsync(Guid customerId, CancellationToken ct)
+        public async Task<IEnumerable<ReservationsResponse>> GetAllReservations(CancellationToken ct)
+        {
+            var reservations = await _reservationRepository.GetAllAsync(ct);
+            return reservations.Select(r => new ReservationsResponse
+            (
+                r.ReservationId,
+                r.ProductId,
+                r.Status.ToString(),
+                r.CreatedAt
+            ));
+        }
+
+        public async Task<IEnumerable<ReservationsResponse>> GetAllReservationsByCustomerAsync(Guid customerId, CancellationToken ct)
         {
             if (customerId == Guid.Empty)
                 throw new ArgumentException("O ID do cliente não pode ser vazio", nameof(customerId));
 
             var reservations = await _reservationRepository.GetByCustomerIdAsync(customerId, ct);
-            return reservations.Select(r => new AllReservationsByCustomerResponse
+            return reservations.Select(r => new ReservationsResponse
             (
                 r.ReservationId,
                 r.ProductId,

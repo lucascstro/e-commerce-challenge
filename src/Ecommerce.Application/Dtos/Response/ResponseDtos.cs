@@ -2,7 +2,7 @@ using Ecommerce.Domain.Entities.Enum;
 
 namespace Ecommerce.Application.Dtos.Response
 {
-    public record AllReservationsByCustomerResponse(
+    public record ReservationsResponse(
         Guid ReservationId,
         Guid ProductId,
         string Status,

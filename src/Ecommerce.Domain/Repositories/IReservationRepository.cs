@@ -4,7 +4,7 @@ namespace Ecommerce.Domain.Repositories
 {
     public interface IReservationRepository
     {
-        public Task<IEnumerable<Reservation>> GetAllAsync();
+        public Task<IEnumerable<Reservation>> GetAllAsync(CancellationToken ct);
         public Task<Reservation> GetByIdAsync(Guid reservationId, CancellationToken ct);
         public Task<IEnumerable<Reservation>> GetByCustomerIdAsync(Guid customerId, CancellationToken ct);
         public Task<IEnumerable<Reservation>> GetByProductIdAsync(Guid productId, CancellationToken ct);
