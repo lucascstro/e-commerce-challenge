@@ -67,10 +67,10 @@ namespace Ecommerce.Application.Services.Reservation
                 throw new ArgumentException("O ID da reserva não pode ser vazio", nameof(reservationId));
 
             var reservation = await _reservationRepository.GetByIdAsync(reservationId, ct);
-            var product = await _productRepository.GetByIdAsync(reservation.ProductId);
-
             if(reservation == null)
                 throw new ArgumentException("Reserva não encontrada", nameof(reservationId));
+
+            var product = await _productRepository.GetByIdAsync(reservation.ProductId);
 
             reservation.UpdateStatus(status);
             product.MarkAsAvailable();
