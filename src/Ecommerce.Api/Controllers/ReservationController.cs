@@ -16,6 +16,11 @@ namespace Ecommerce.Api.Controllers
             _reservationService = reservationService;
         }
 
+        /// <summary>
+        /// Lista todas as reservas cadastradas.
+        /// </summary>
+        /// <param name="ct">Token de cancelamento da requisição.</param>
+        /// <returns>A lista completa de reservas.</returns>
         [HttpGet]
         public async Task<IActionResult> GetAllReservations(CancellationToken ct)
         {
