@@ -31,8 +31,8 @@ namespace Ecommerce.Infra.Database
                 new("Capacete", "Capacete fechado com viseira antirrisco", StatusProduct.Available),
                 new("Luva de Proteção", "Luva de couro com proteção nos dedos", StatusProduct.Available),
                 new("Cadeado", "Cadeado em U de aço temperado", StatusProduct.Available),
-                new("Bomba de Ar", "Bomba de ar portátil com manômetro", StatusProduct.Available),
-                new("Kit de Ferramentas", "Kit com chaves e reparos para bicicleta e moto", StatusProduct.Available)
+                new("Bomba de Ar", "Bomba de ar portátil com manômetro", StatusProduct.Unavailable),
+                new("Kit de Ferramentas", "Kit com chaves e reparos para bicicleta e moto", StatusProduct.Unavailable)
             };
 
             var reservations = new List<Reservation>
