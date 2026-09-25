@@ -26,7 +26,8 @@ namespace Ecommerce.Application.Services.Reservation
                 r.ReservationId,
                 r.ProductId,
                 r.Status.ToString(),
-                r.CreatedAt
+                r.CreatedAt,
+                r.ExpiresAt
             ));
         }
 
@@ -41,7 +42,8 @@ namespace Ecommerce.Application.Services.Reservation
                 r.ReservationId,
                 r.ProductId,
                 r.Status.ToString(),
-                r.CreatedAt
+                r.CreatedAt,
+                r.ExpiresAt
             ));
         }
 

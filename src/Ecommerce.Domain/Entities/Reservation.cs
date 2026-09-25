@@ -8,8 +8,8 @@ namespace Ecommerce.Domain.Entities
         public Guid ReservationId { get; private set; } = Guid.NewGuid();
         public Guid CustomerId { get; private set; }  
         public Guid ProductId { get; private set; }
-        public DateTime CreatedAt { get; private set; } = DateTime.UtcNow;
-        public DateTime ExpiresAt { get; private set; } = DateTime.UtcNow.AddHours(72);
+        public DateTime CreatedAt { get; private set; } = DateTime.Now;
+        public DateTime ExpiresAt { get; private set; } = DateTime.Now.AddMinutes(1);
         public StatusReservation Status { get; private set; } = StatusReservation.Active;
 
         public Reservation(Guid customerId, Guid productId)

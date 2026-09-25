@@ -1,4 +1,5 @@
 using Ecommerce.Domain.Repositories;
+using Ecommerce.Infra.BackgroundServices;
 using Ecommerce.Infra.Database;
 using Ecommerce.Infra.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -15,6 +16,7 @@ namespace Ecommerce.Infra
             services.AddScoped<IReservationRepository, ReservationRepository>();
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddHostedService<ReservationExpirationValidationBackgroundService>();
 
             return services;
         }
