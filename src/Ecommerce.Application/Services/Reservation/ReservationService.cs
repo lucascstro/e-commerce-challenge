@@ -69,7 +69,7 @@ namespace Ecommerce.Application.Services.Reservation
 
             var reservation = new Domain.Entities.Reservation(request.CustomerId, request.ProductId);
             var product = await _productRepository.GetByIdAsync(request.ProductId);
-            product.MarkAsUnavailable();
+            product.MarkAsReserved();
             
             await _reservationRepository.AddAsync(reservation, ct);
             await _productRepository.UpdateAsync(product);
