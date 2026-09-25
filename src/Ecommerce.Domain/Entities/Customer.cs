@@ -10,7 +10,13 @@ namespace Ecommerce.Domain.Entities
         public Guid CustomerId { get; private set; } = Guid.NewGuid();
         public string Name { get; private set; }
 
-        public Customer(string name) => SetName(name);
+        public Customer(string name, Guid? id = null)
+        {
+            if (id.HasValue)
+                CustomerId = id.Value;
+
+            SetName(name);
+        }
         
         public void UpdateName(string name) => SetName(name);
 

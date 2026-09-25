@@ -16,16 +16,16 @@ namespace Ecommerce.Infra.Database
 
             var customers = new List<Customer>
             {
-                new("Marina Silva"),
-                new("Cabo Daciolo"),
-                new("Padre Kelmon"),
+                new("Marina Silva", Guid.Parse("10000000-0000-0000-0000-000000000001")),
+                new("Cabo Daciolo", Guid.Parse("10000000-0000-0000-0000-000000000002")),
+                new("Padre Kelmon", Guid.Parse("10000000-0000-0000-0000-000000000003")),
             };
 
             var products = new List<Product>
             {
-                new("Carro", "Sedan 4 portas, motor 1.6, câmbio automático", StatusProduct.Reserved),
-                new("Moto", "Motocicleta 160cc, ideal para uso urbano", StatusProduct.Reserved),
-                new("Bicicleta", "Bicicleta aro 29 com 21 marchas", StatusProduct.Reserved),
+                new("Carro", "Sedan 4 portas, motor 1.6, câmbio automático", StatusProduct.Reserved, Guid.Parse("20000000-0000-0000-0000-000000000001")),
+                new("Moto", "Motocicleta 160cc, ideal para uso urbano", StatusProduct.Reserved, Guid.Parse("20000000-0000-0000-0000-000000000002")),
+                new("Bicicleta", "Bicicleta aro 29 com 21 marchas", StatusProduct.Reserved, Guid.Parse("20000000-0000-0000-0000-000000000003")),
                 new("Patinete Elétrico", "Patinete com autonomia de 25 km e velocidade máxima de 25 km/h", StatusProduct.Available),
                 new("Skate", "Skate completo com shape de maple canadense", StatusProduct.Available),
                 new("Capacete", "Capacete fechado com viseira antirrisco", StatusProduct.Available),
@@ -37,9 +37,9 @@ namespace Ecommerce.Infra.Database
 
             var reservations = new List<Reservation>
             {
-                new(customers[0].CustomerId, products[2].ProductId),
-                new(customers[1].CustomerId, products[1].ProductId),
-                new(customers[2].CustomerId, products[0].ProductId),
+                new(customers[0].CustomerId, products[2].ProductId, Guid.Parse("30000000-0000-0000-0000-000000000001")),
+                new(customers[1].CustomerId, products[1].ProductId, Guid.Parse("30000000-0000-0000-0000-000000000002")),
+                new(customers[2].CustomerId, products[0].ProductId, Guid.Parse("30000000-0000-0000-0000-000000000003")),
             };
 
             customers.ForEach(c => Console.WriteLine($"Customer: {c.CustomerId} - {c.Name}"));

@@ -12,13 +12,16 @@ namespace Ecommerce.Domain.Entities
         public DateTime ExpiresAt { get; private set; } = DateTime.Now.AddMinutes(1);
         public StatusReservation Status { get; private set; } = StatusReservation.Active;
 
-        public Reservation(Guid customerId, Guid productId)
+        public Reservation(Guid customerId, Guid productId, Guid? id = null)
         {
             if(customerId == Guid.Empty)
                 throw new DomainException("O ID do cliente não pode ser vazio.");
 
             if(productId == Guid.Empty)
                 throw new DomainException("O ID do produto não pode ser vazio.");
+
+            if (id.HasValue)
+                ReservationId = id.Value;
 
             CustomerId = customerId;
             ProductId = productId;
